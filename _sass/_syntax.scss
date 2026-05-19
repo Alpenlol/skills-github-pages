@@ -1,0 +1,40 @@
+// Rouge syntax highlighting — cyberpunk dark terminal theme.
+
+.highlight {
+  background: var(--bg-card);
+  color: var(--fg);
+  border: 1px solid var(--border-soft);
+  border-left: 3px solid var(--accent);
+  padding: 16px;
+  overflow-x: auto;
+  margin: 20px 0;
+
+  pre { margin: 0; color: var(--fg); }
+
+  // Comments
+  .c, .cm, .c1, .cs, .cp { color: #555566; font-style: italic; }
+  // Strings
+  .s, .s1, .s2, .sb, .sc, .sh, .sx, .sr { color: var(--accent); }
+  // Keywords
+  .k, .kc, .kd, .kn, .kp, .kr, .kt, .kv { color: var(--fg-strong); font-weight: bold; }
+  // Functions / methods
+  .nf, .fm, .ni, .nl, .nn, .nx { color: var(--fg-dim); }
+  // Names / variables
+  .n, .na, .nb, .nc, .nd, .ne, .no, .nv, .bp, .vc, .vg, .vi, .vm { color: var(--fg); }
+  // Numbers / constants
+  .m, .mi, .mf, .mh, .mo, .il { color: #cc8844; }
+  // Operators
+  .o, .ow { color: #e0e0e4; }
+  // Punctuation
+  .p { color: var(--fg); }
+  // Generic
+  .gd { color: var(--accent); }
+  .gi { color: #28a745; }
+  .ge { font-style: italic; }
+  .gs { font-weight: bold; }
+  .gh, .gu { color: #888899; font-weight: bold; }
+  // Errors
+  .err { color: var(--accent); }
+  // Whitespace
+  .w { color: var(--fg); }
+}

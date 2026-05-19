@@ -1,0 +1,164 @@
+// Navbar — fixed top, transparent over hero, solid on scroll.
+
+#mainNav {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  font-family: var(--font-mono);
+  background: transparent;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  border-bottom: 1px solid transparent;
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    min-height: var(--navbar-height);
+    padding-block: 8px;
+    gap: 16px;
+  }
+
+  .navbar-brand {
+    font-weight: 800;
+    color: #fff;
+    border-left: 3px solid var(--accent);
+    padding: 6px 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 14px;
+
+    &:hover, &:focus {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+
+  .navbar-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    padding: 8px;
+    color: #fff;
+
+    svg { width: 22px; height: 22px; }
+
+    &:hover, &:focus { color: var(--accent); outline: none; }
+  }
+
+  .navbar-menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    margin-left: auto;
+    gap: 8px;
+
+    > li > a {
+      display: inline-block;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #fff;
+
+      &:hover, &:focus {
+        color: rgba(255, 255, 255, 0.7);
+      }
+    }
+  }
+
+  // Solidified state — added by JS once user scrolls past hero.
+  &.is-fixed {
+    position: fixed;
+    background: rgba(10, 10, 12, 0.95);
+    border-bottom-color: var(--border);
+    backdrop-filter: blur(8px);
+
+    .navbar-brand,
+    .navbar-menu > li > a {
+      color: var(--fg-strong);
+    }
+
+    .navbar-brand:hover,
+    .navbar-brand:focus,
+    .navbar-menu > li > a:hover,
+    .navbar-menu > li > a:focus {
+      color: var(--accent);
+    }
+
+    .navbar-toggle { color: var(--fg-strong); }
+  }
+
+  // Mobile breakpoint
+  @media (max-width: 991.98px) {
+    .navbar-toggle { display: inline-flex; }
+
+    .navbar-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0; right: 0;
+      flex-direction: column;
+      background: rgba(10, 10, 12, 0.97);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 16px;
+      gap: 0;
+
+      > li {
+        width: 100%;
+
+        > a {
+          display: block;
+          padding: 12px 0;
+          color: var(--fg-strong);
+          width: 100%;
+        }
+      }
+    }
+
+    &.is-open .navbar-menu { display: flex; }
+  }
+
+  @media (min-width: 992px) {
+    .navbar-toggle { display: none; }
+  }
+}
+
+// Vaporwave toggle pill
+.vaporwave-toggle {
+  display: inline-flex;
+  align-items: center;
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  padding: 2px;
+  margin-left: 6px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  flex-shrink: 0;
+
+  &:focus { outline: none; }
+
+  .vaporwave-toggle-knob {
+    display: block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+}
+
+html.vaporwave .vaporwave-toggle {
+  background: linear-gradient(135deg, #e61fa0, #b967ff);
+  border-color: transparent;
+
+  .vaporwave-toggle-knob {
+    background: #fff;
+    transform: translateX(16px);
+  }
+}

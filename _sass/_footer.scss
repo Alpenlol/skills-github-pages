@@ -1,0 +1,22 @@
+// Footer — minimal copyright line.
+
+footer {
+  padding: 50px 0 65px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  margin-top: 32px;
+
+  .copyright {
+    font-size: 14px;
+    color: var(--fg-muted);
+    margin: 0;
+  }
+
+  a {
+    color: var(--fg-muted);
+
+    &:hover, &:focus {
+      color: var(--accent);
+    }
+  }
+}

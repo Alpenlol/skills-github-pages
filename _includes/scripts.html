@@ -1,34 +1,34 @@
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="{{"/assets/vendor/startbootstrap-clean-blog/js/scripts.js" | relative_url }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js" defer></script>
 
-<script src="{{"/assets/scripts.js" | relative_url }}"></script>
-<script src="{{"/assets/terminal.js" | relative_url }}"></script>
+<script src="{{ '/assets/scripts.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/terminal.js' | relative_url }}" defer></script>
 
 <script>
-  if (document.getElementById("particles")) {
-    tsParticles.load("particles", {
-      fullScreen: { enable: false },
-      background: { color: "transparent" },
-      particles: {
-        number: { value: 80, density: { enable: true, area: 800 } },
-        color: { value: "#d4243b" },
-        shape: { type: "square" },
-        opacity: { value: 0.4, random: { enable: true, minimumValue: 0.1 } },
-        size: { value: 5, random: { enable: true, minimumValue: 2 } },
-        move: {
-          enable: true,
-          speed: 0.4,
-          direction: "none",
-          random: true,
-          straight: false,
-          outModes: "out"
+  document.addEventListener('DOMContentLoaded', function () {
+    if (document.getElementById('particles') && typeof tsParticles !== 'undefined') {
+      tsParticles.load('particles', {
+        fullScreen: { enable: false },
+        background: { color: 'transparent' },
+        particles: {
+          number: { value: 80, density: { enable: true, area: 800 } },
+          color: { value: '#d4243b' },
+          shape: { type: 'square' },
+          opacity: { value: 0.4, random: { enable: true, minimumValue: 0.1 } },
+          size: { value: 5, random: { enable: true, minimumValue: 2 } },
+          move: {
+            enable: true,
+            speed: 0.4,
+            direction: 'none',
+            random: true,
+            straight: false,
+            outModes: 'out'
+          },
+          links: { enable: false }
         },
-        links: { enable: false }
-      },
-      detectRetina: true
-    });
-  }
+        detectRetina: true
+      });
+    }
+  });
 </script>
 
 <script>
@@ -39,7 +39,13 @@
 
     function applyMode(on) {
       document.documentElement.classList.toggle('vaporwave', on);
+      var btn = document.getElementById('vaporwave-toggle');
+      if (btn) btn.setAttribute('aria-pressed', on ? 'true' : 'false');
       updateParticles(on);
+      syncAvatar(on);
+    }
+
+    function syncAvatar(on) {
       var avatar = document.getElementById('avatar-img');
       if (avatar) {
         avatar.src = on ? '/img/vaporwave_curt.png' : '/img/curt.png';
@@ -57,94 +63,17 @@
 
     document.addEventListener('DOMContentLoaded', function () {
       var btn = document.getElementById('vaporwave-toggle');
+      var on = document.documentElement.classList.contains('vaporwave');
       if (btn) {
+        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
         btn.addEventListener('click', function () {
           var next = !document.documentElement.classList.contains('vaporwave');
           applyMode(next);
           try { localStorage.setItem(KEY, next ? '1' : '0'); } catch (e) {}
         });
       }
+      syncAvatar(on);
+      if (on) updateParticles(true);
     });
-
-    try { if (localStorage.getItem(KEY) === '1') applyMode(true); } catch (e) {}
   })();
 </script>
-
-{% if page.url contains 'contact' %}
-  <!-- Form Validation -->
-  <script src="{{"/assets/vendor/startbootstrap-clean-blog/js/jqBootstrapValidation.js" | relative_url }}"></script>
-  <!-- Send Form -->
-  <script>
-    $(function () {
-
-      $("#contactForm input,#contactForm textarea").jqBootstrapValidation({
-        preventSubmit: true,
-        submitError: function ($form, event, errors) {
-          // additional error messages or events
-        },
-        submitSuccess: function ($form, event) {
-          event.preventDefault(); // prevent default submit behaviour
-          // get values from FORM
-          var name = $("input#name").val();
-          var email = $("input#email").val();
-          var phone = $("input#phone").val();
-          var message = $("textarea#message").val();
-          var firstName = name; // For Success/Failure Message
-          // Check for white space in name for Success/Fail message
-          if (firstName.indexOf(' ') >= 0) {
-            firstName = name.split(' ').slice(0, -1).join(' ');
-          }
-          $this = $("#sendMessageButton");
-          $this.prop("disabled", true); // Disable submit button until AJAX call is complete to prevent duplicate messages
-          $.ajax({
-            url: "//formspree.io/{{ site.email }}",
-            type: "POST",
-            data: {
-              name: name,
-              phone: phone,
-              email: email,
-              message: message
-            },
-            cache: false,
-            success: function () {
-              // Success message
-              $('#success').html("<div class='alert alert-success'>");
-              $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;").append("</button>");
-              $('#success > .alert-success').append("<strong>Your message has been sent. </strong>");
-              $('#success > .alert-success').append('</div>');
-              //clear all fields
-              $('#contactForm').trigger("reset");
-            },
-            error: function () {
-              // Fail message
-              $('#success').html("<div class='alert alert-danger'>");
-              $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;").append("</button>");
-              $('#success > .alert-danger').append($("<strong>").text("Sorry " + firstName + ", it seems that my mail server is not responding. Please try again later!"));
-              $('#success > .alert-danger').append('</div>');
-              //clear all fields
-              $('#contactForm').trigger("reset");
-            },
-            complete: function () {
-              setTimeout(function () {
-                $this.prop("disabled", false); // Re-enable submit button when AJAX call is complete
-              }, 1000);
-            }
-          });
-        },
-        filter: function () {
-          return $(this).is(":visible");
-        }
-      });
-
-      $("a[data-toggle=\"tab\"]").click(function (e) {
-        e.preventDefault();
-        $(this).tab("show");
-      });
-    });
-
-    /*When clicking on Full hide fail/success boxes */
-    $('#name').focus(function () {
-      $('#success').html('');
-    });
-  </script>
-{% endif %}

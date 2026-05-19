@@ -2,64 +2,48 @@
 layout: default
 ---
 
-<!-- Page Header -->
 {% if page.background %}
 <header class="masthead" style="background-image: url('{{ page.background }}')">
-  {% else %}
-  <header class="masthead">
-    {% endif %}
-    <div class="overlay"></div>
-    <div id="particles"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="page-heading">
-            <img src="{{ '/img/BANNER.png' | relative_url }}" alt="{{ site.title }}" class="img-fluid">
-            <span class="subheading">{{ site.description }}</span>
-            <p class="motto">Nil Latet</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
+{% else %}
+<header class="masthead">
+{% endif %}
+  <div class="overlay"></div>
+  <div id="particles"></div>
   <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        {{ content }}
-
-        <!-- Home Post List -->
-        {% for post in site.posts limit : 5 %}
-
-        <article class="post-preview">
-          <a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">
-            <h2 class="post-title">{{ post.title }}</h2>
-            {% if post.subtitle %}
-            <h3 class="post-subtitle">{{ post.subtitle }}</h3>
-            {% else %}
-            <h3 class="post-subtitle">{{ post.excerpt | strip_html | truncatewords: 15 }}</h3>
-            {% endif %}
-          </a>
-          <p class="post-meta">Posted by
-            {% if post.author %}
-            {{ post.author }}
-            {% else %}
-            {{ site.author }}
-            {% endif %}
-            on
-            {{ post.date | date: '%B %d, %Y' }} &middot; {% include read_time.html content=post.content %}            
-          </p>
-        </article>
-
-        <hr>
-
-        {% endfor %}
-
-        <!-- Pager -->
-        <div class="clearfix">
-          <a class="btn btn-primary float-right" href="{{"/posts" | relative_url }}">View All Posts &rarr;</a>
-        </div>
-
+    <div class="content">
+      <div class="site-heading">
+        <img src="{{ '/img/BANNER.png' | relative_url }}" alt="{{ site.title }}">
+        <span class="subheading">{{ site.description }}</span>
+        <p class="motto">Nil Latet</p>
       </div>
     </div>
   </div>
+</header>
+
+<main class="container">
+  <div class="content">
+    {{ content }}
+
+    {% for post in site.posts limit: 5 %}
+    <article class="post-preview">
+      <a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">
+        <h2 class="post-title">{{ post.title }}</h2>
+        {% if post.subtitle %}
+        <h3 class="post-subtitle">{{ post.subtitle }}</h3>
+        {% else %}
+        <h3 class="post-subtitle">{{ post.excerpt | strip_html | truncatewords: 15 }}</h3>
+        {% endif %}
+      </a>
+      <p class="post-meta">Posted by
+        {% if post.author %}{{ post.author }}{% else %}{{ site.author }}{% endif %}
+        on {{ post.date | date: '%B %d, %Y' }} &middot; {% include read_time.html content=post.content %}
+      </p>
+    </article>
+    <hr>
+    {% endfor %}
+
+    <div class="pager">
+      <a class="btn btn-primary pager-next" href="{{ '/posts' | relative_url }}">View All Posts &rarr;</a>
+    </div>
+  </div>
+</main>

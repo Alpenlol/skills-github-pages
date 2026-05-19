@@ -1,0 +1,76 @@
+// Post-preview cards (home + posts index) and prev/next nav.
+
+.post-preview {
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  border-left: 3px solid var(--accent);
+  padding: 20px 24px;
+  margin-bottom: 20px;
+
+  > a {
+    color: var(--accent);
+    font-weight: normal;
+
+    &:hover, &:focus {
+      text-decoration: none;
+      color: var(--fg-dim);
+    }
+
+    > .post-title {
+      font-size: clamp(24px, 3vw, 36px);
+      margin-top: 16px;
+      margin-bottom: 10px;
+    }
+
+    > .post-subtitle {
+      font-weight: 300;
+      margin: 0 0 10px;
+    }
+  }
+
+  > .post-meta {
+    font-size: 16px;
+    font-style: italic;
+    margin-top: 0;
+    color: var(--fg-muted);
+
+    > a {
+      color: var(--fg-strong);
+      text-decoration: none;
+
+      &:hover, &:focus {
+        text-decoration: underline;
+        color: var(--accent);
+      }
+    }
+  }
+}
+
+// Prev/next post navigation
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+
+  .post-nav-prev { margin-right: auto; }
+  .post-nav-next { margin-left: auto; }
+}
+
+// Pagination on posts index
+.pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+
+  .pager-prev { margin-right: auto; }
+  .pager-next { margin-left: auto; }
+}
+
+@media (max-width: 575.98px) {
+  .post-nav .label-long,
+  .pager .label-long { display: none; }
+}

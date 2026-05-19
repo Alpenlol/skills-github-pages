@@ -1,0 +1,48 @@
+// Design tokens — colors, typography, spacing.
+// Theming flips via custom properties under html.vaporwave.
+
+:root {
+  // Colors
+  --bg:           #0c0c0e;
+  --bg-elevated:  #1a1a1f;
+  --bg-card:      #0c0c0e;
+  --fg:           #c8c8cc;
+  --fg-strong:    #f0f0f0;
+  --fg-muted:     #6c757d;
+  --fg-dim:       #b0b0b8;
+  --accent:       #d4243b;
+  --accent-hover: #b81e30;
+  --border:       #2a2a2f;
+  --border-soft:  #1a1a1f;
+  --selection-bg: var(--accent);
+  --selection-fg: #fff;
+  --link:         var(--accent);
+  --link-hover:   var(--accent);
+
+  // Typography
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+               Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", SFMono-Regular, Menlo, Monaco, Consolas,
+               "Liberation Mono", "Courier New", monospace;
+
+  // Layout
+  --container-max: 1200px;
+  --content-max:   720px;
+  --container-pad: clamp(16px, 4vw, 32px);
+  --navbar-height: 56px;
+}
+
+html.vaporwave {
+  --bg-elevated:  #b3f0f0;
+  --bg-card:      #e6fafa;
+  --fg:           #0d0050;
+  --fg-strong:    #7700cc;
+  --fg-muted:     #b967ff;
+  --fg-dim:       #b967ff;
+  --accent:       #e61fa0;
+  --accent-hover: #b967ff;
+  --border:       #ff71ce;
+  --border-soft:  #ff71ce;
+  --link:         #e61fa0;
+  --link-hover:   #b967ff;
+}

@@ -5,7 +5,6 @@ background: /img/bg-posts.png
 ---
 
 {% for post in paginator.posts %}
-
 <article class="post-preview">
   <a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">
     <h2 class="post-title">{{ post.title }}</h2>
@@ -16,33 +15,20 @@ background: /img/bg-posts.png
     {% endif %}
   </a>
   <p class="post-meta">Posted by
-    {% if post.author %}
-    {{ post.author }}
-    {% else %}
-    {{ site.author }}
-    {% endif %}
+    {% if post.author %}{{ post.author }}{% else %}{{ site.author }}{% endif %}
     on {{ post.date | date: '%B %d, %Y' }} &middot; {% include read_time.html content=post.content %}
   </p>
 </article>
-
 <hr>
-
 {% endfor %}
 
-<!-- Pager -->
 {% if paginator.total_pages > 1 %}
-
-<div class="clearfix">
-
+<nav class="pager" aria-label="Pagination">
   {% if paginator.previous_page %}
-  <a class="btn btn-primary float-left" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr;
-    Newer<span class="d-none d-md-inline"> Posts</span></a>
+  <a class="btn btn-primary pager-prev" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Newer<span class="label-long"> Posts</span></a>
   {% endif %}
-
   {% if paginator.next_page %}
-  <a class="btn btn-primary float-right" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older<span class="d-none d-md-inline"> Posts</span> &rarr;</a>
+  <a class="btn btn-primary pager-next" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older<span class="label-long"> Posts</span> &rarr;</a>
   {% endif %}
-
-</div>
-
+</nav>
 {% endif %}

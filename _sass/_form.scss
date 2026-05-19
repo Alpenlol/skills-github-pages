@@ -1,0 +1,53 @@
+// Contact form — native HTML5, no floating-label library.
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+  }
+
+  input,
+  textarea {
+    padding: 10px 12px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--fg-strong);
+    font-family: var(--font-body);
+    font-size: 16px;
+    border-radius: 0;
+    outline: none;
+    transition: border-color 0.15s ease;
+
+    &:focus {
+      border-color: var(--accent);
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .form-status {
+    min-height: 1.5em;
+    font-size: 14px;
+
+    &.is-success { color: #28a745; }
+    &.is-error   { color: var(--accent); }
+  }
+}
