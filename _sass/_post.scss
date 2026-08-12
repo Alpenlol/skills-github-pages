@@ -1,11 +1,44 @@
 // Post-preview cards (home + posts index) and prev/next nav.
 
 .post-preview {
-  background: var(--bg-card);
-  border: 1px solid var(--border-soft);
-  border-left: 3px solid var(--accent);
+  --notch: 18px;
+  --notch-poly: polygon(
+    var(--notch) 0%,
+    100% 0%,
+    100% calc(100% - var(--notch)),
+    calc(100% - var(--notch)) 100%,
+    0% 100%,
+    0% var(--notch)
+  );
+  background: transparent;
   padding: 20px 24px;
   margin-bottom: 20px;
+  position: relative;
+  clip-path: var(--notch-poly);
+
+  // Thin accent-colored frame, painted behind the card fill so only a
+  // 2px rim shows — traces the angular cut corners too.
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background: var(--accent);
+    clip-path: var(--notch-poly);
+  }
+
+  // Card fill, inset by the frame's thickness so the accent rim peeks out.
+  &::after {
+    content: "";
+    position: absolute;
+    // Flush top/bottom so the flat edges show no accent; inset on the
+    // sides so the accent rim shows along the sides and angular corners.
+    inset: 0 2px;
+    z-index: -1;
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    clip-path: var(--notch-poly);
+  }
 
   > a {
     color: var(--accent);
